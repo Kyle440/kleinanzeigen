@@ -13,7 +13,46 @@
 |
 */
 
+
+const PostController = use('App/Controllers/Http/PostController')
+const Database = use('Database')
+
+
+
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.on('/').render('welcome')
+
+
+/** Homepage */
+Route.get('/', 'HomeController.index');
+
+
+/** Chats */
+Route.get('/chats', async ({ view }) => {
+    return view.render('layout', { page: 'chats' });
+})
+
+
+/** Profilseite */
+Route.get('/profil', async ({ view }) => {
+    return view.render('layout', { page: 'profil' })
+})
+
+
+/** Anzeigen erstellen */
+Route.get('/ads/create', 'AnzeigenController.createForm')
+Route.post('/ads/create', 'AnzeigenController.store')
+
+
+/** Blog */
+Route.get('/posts', async ({ view }) => {
+    const posts = await Database.table('posts').select('*');
+    return view.render('layout', { page: 'posts', posts });
+})
+
+
+/** Success-Page */
+Route.get('/success-page', async ({ view }) => {
+    return view.render('layout', { page: 'success-page' })
+})

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neue Anzeige erstellen</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            Neue Anzeige erstellen
+        </div>
+        <div class="card-body">
+            <form method="POST" action="/ads/create">
+                <!-- CSRF-Token -->
+                <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+                <div class="form-group">
+                    <label for="titel">Titel:</label>
+                    <input type="text" id="titel" name="titel" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="beschreibung">Beschreibung:</label>
+                    <textarea id="beschreibung" name="beschreibung" class="form-control" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="preis">Preis:</label>
+                    <input type="number" id="preis" name="preis" class="form-control" required step="0.01">
+                </div>
+                <button type="submit" class="btn btn-primary">Anzeige erstellen</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // JavaScript code for handling form submission and providing feedback to users
+    document.querySelector('form').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        try {
+            const response = await fetch('/ads/create', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                alert('Ad created successfully');
+                // Optionally, redirect to another page or perform other actions
+            } else {
+                alert('Failed to create ad');
+            }
+        } catch (error) {
+            console.error('Error creating ad:', error);
+            alert('An error occurred while creating ad');
+        }
+    });
+</script>
+</body>
+</html>

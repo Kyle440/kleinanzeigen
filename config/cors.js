@@ -6,45 +6,37 @@ module.exports = {
   | Origin
   |--------------------------------------------------------------------------
   |
-  | Set a list of origins to be allowed. The value can be one of the following
+  | Set the list of origins to be allowed. The value can be one of the following
   |
   | Boolean: true - Allow current request origin
   | Boolean: false - Disallow all
-  | String - Comma seperated list of allowed origins
-  | Array - An array of allowed origins
-  | String: * - A wildcard to allow current request origin
-  | Function - Receives the current origin and should return one of the above values.
+  | String[] - An array of allowed origins
+  | String - A single allowed origin
+  | RegExp - A regular expression pattern allowed origins
+  | Function - Receives the origin as the first parameter and should return the origin
+  |            to be allowed ('*' disallows all origins)
   |
   */
-  origin: false,
+  origin: true,
 
   /*
   |--------------------------------------------------------------------------
   | Methods
   |--------------------------------------------------------------------------
   |
-  | HTTP methods to be allowed. The value can be one of the following
+  | Set the list of methods to be allowed. The value can be one of the following
   |
-  | String - Comma seperated list of allowed methods
-  | Array - An array of allowed methods
+  | String[] - An array of allowed methods
   |
   */
-  methods: ['GET', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  methods: ['GET', 'PUT', 'POST', 'DELETE'],
 
   /*
   |--------------------------------------------------------------------------
   | Headers
   |--------------------------------------------------------------------------
   |
-  | List of headers to be allowed via Access-Control-Request-Headers header.
-  | The value can be on of the following.
-  |
-  | Boolean: true - Allow current request headers
-  | Boolean: false - Disallow all
-  | String - Comma seperated list of allowed headers
-  | Array - An array of allowed headers
-  | String: * - A wildcard to allow current request headers
-  | Function - Receives the current header and should return one of the above values.
+  | Configure which headers are allowed in the request.
   |
   */
   headers: true,
@@ -54,15 +46,10 @@ module.exports = {
   | Expose Headers
   |--------------------------------------------------------------------------
   |
-  | A list of headers to be exposed via `Access-Control-Expose-Headers`
-  | header. The value can be on of the following.
-  |
-  | Boolean: false - Disallow all
-  | String: Comma seperated list of allowed headers
-  | Array - An array of allowed headers
+  | Set which headers are to be exposed in the response.
   |
   */
-  exposeHeaders: false,
+  exposeHeaders: [],
 
   /*
   |--------------------------------------------------------------------------
@@ -73,7 +60,7 @@ module.exports = {
   | boolean.
   |
   */
-  credentials: false,
+  credentials: true,
 
   /*
   |--------------------------------------------------------------------------
@@ -83,5 +70,5 @@ module.exports = {
   | Define Access-Control-Allow-Max-Age
   |
   */
-  maxAge: 90
-}
+  maxAge: 90,
+};
