@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <style>
+    textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 10px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    </style>
+</head>
+<body>
+    <div class="container mt-3">
+        <h1>Chat {{ chat.chat_id }}</h1>
+        <ul>
+            @if(chat.messages && chat.messages.length > 0)
+            @each(message in chat.messages)
+            <li>{{ message.user.username }}: {{ message.message }}</li>
+            @endeach
+            @else
+            <p>Keine Nachrichten in diesem Chat.</p>
+            @endif    
+        </ul>
+        <form action="/chats/{{ chat.chat_id }}/messages" method="post">
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}"> <!-- CSRF-Token -->
+            <input type="hidden" name="chat_id" value="{{ chat.chat_id }}"> <!-- Chat-ID -->
+            <textarea name="message" required></textarea>
+            <button type="submit">Senden</button>
+        </form>
+    </div>
+</body>
+</html>

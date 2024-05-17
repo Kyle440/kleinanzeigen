@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrieren</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .profile-image {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 3px solid #fff;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      }
+      </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registrieren</h1>
+        <form action="/register" method="POST">
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+            <div class="form-group">
+                <label for="username">Benutzername:</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-Mail:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Passwort:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="btn-group" role="group">
+                <a href="/" class="btn btn-primary mr-2 rounded">Zurück</a>
+            <button type="submit" class="btn btn-success rounded">Registrieren</button>
+        </div>
+        </form>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+    .profile-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #fff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+</style>
+</head>
+<body>
+    <div class="container mt-3">
+        <h1>Profil</h1>
+        <div class="mb-3">
+            <label for="username">Benutzername:</label>
+            <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="password">Passwort:</label>
+            <div class="input-group">
+                <input type="password" class="form-control" id="password" name="password" value="{{ user.password }}" readonly>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility()">
+                        <i id="toggleEye" class="far fa-eye"></i> <!-- Auge-Icon für sichtbares Passwort -->
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="profile_image">Profilbild:</label>
+            <br>            
+            <img src="{{ user.profile_image }}" alt="Profilbild" class="img-thumbnail profile-image">
+        </div>
+        <a href="/profil/bearbeiten" class="btn btn-secondary">Profil Bearbeiten</a>
+    </div>
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById('password');
+            var toggleEyeIcon = document.getElementById('toggleEye');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleEyeIcon.classList.remove('fa-eye');
+                toggleEyeIcon.classList.add('fa-eye-slash'); // wechselt das Icon zu einem durchgestrichenen Auge
+            } else {
+                passwordInput.type = 'password';
+                toggleEyeIcon.classList.remove('fa-eye-slash');
+                toggleEyeIcon.classList.add('fa-eye'); // wechselt das Icon zurück zu einem Auge
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neue Anzeige erstellen</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .profile-image {
+            width: 60px; /* Größe des Bildes */
+            height: 60px; /* Höhe des Bildes */
+            border-radius: 50%; /* Macht das Bild rund */
+            object-fit: cover; /* Stellt sicher, dass das Bild den Bereich gut ausfüllt ohne verzerrt zu werden */
+            border: 3px solid #fff; /* Fügt einen weißen Rand hinzu */
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3); /* Fügt einen Schatten hinzu */
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-3">
+    <h1>Anzeige Erstellen</h1>
+    <div class="card">
+        <div class="card-body">
+            <form method="POST" action="/anzeigen/erstellen" enctype="multipart/form-data">
+                <!-- CSRF-Token -->
+                <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+                <div class="form-group">
+                    <label for="titel">Titel:</label>
+                    <input type="text" id="titel" name="titel" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="beschreibung">Beschreibung:</label>
+                    <textarea id="beschreibung" name="beschreibung" class="form-control" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="preis">Preis:</label>
+                    <input type="number" id="preis" name="preis" class="form-control" required step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="ad_image">Bilder:</label>
+                    <input type="file" class="form-control" id="ad_image" name="ad_image">
+                </div>
+                <button type="submit" class="btn btn-primary">Anzeige erstellen</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // JavaScript code for handling form submission and providing feedback to users
+    document.getElementById('adForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+
+        try {
+            const response = await fetch('/anzeigen/erstellen', {
+                method: 'POST',
+                body: formData
+            });
+            if (response.ok) {
+                window.location.href = '/success-page'; // Specify the URL of your success page
+            } else {
+                alert('Failed to create ad');
+            }
+        } catch (error) {
+            console.error('Error creating ad:', error);
+            alert('An error occurred while creating ad');
+        }
+    });
+</script>
+</body>
+</html>

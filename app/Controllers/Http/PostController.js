@@ -1,17 +1,34 @@
 'use strict'
 
 const Post = use('App/Models/Post')
+const User = use('App/Models/User')
+const Anzeige = use('App/Models/Anzeige');
 
 class PostController {
   async index({ view }) {
-        // Holt alle Posts aus der Datenbank
     const posts = await Post.all();
+    const users = await User.all();
 
-
-        // Rendert die Ansicht 'posts.edge' und übergibt die Posts als JSON-Objekt
-    //return view.render('posts', { posts: posts.toJSON() });
-    return view.render('posts', { page: 'layout' });
-
+    return view.render('posts', { posts, users });
+  }
+  
+  async showUserAds({ auth, view }) {
+    const user = await auth.getUser();
+    const anzeigen = await user.anzeigen().fetch();
+    
+    return view.render('layout', { page: 'posts', anzeigen: anzeigen.toJSON() });
+  }
+  
+  async deleteAd({ params, response, auth }) {
+    const user = await auth.getUser();
+    const anzeige = await Anzeige.find(params.id);
+    
+    if (anzeige && anzeige.user_id === user.user_id) {
+      await anzeige.delete();
+      return response.redirect('/posts');
+    }
+    
+    return response.status(403).send('Unauthorized access');
   }
 }
 

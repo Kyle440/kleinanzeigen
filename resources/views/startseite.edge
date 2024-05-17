@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Posts</title>
+    <title>Startseite</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
     <style>
         .ads-container {
             display: flex;
@@ -49,13 +50,13 @@
         .ad-image {
             width: 100%;
             height: 200px;
-            object-fit: cover; /* Stellt sicher, dass das Bild den Bereich gut ausfüllt ohne verzerrt zu werden */
+            object-fit: cover;
         }
-      </style>
+    </style>
 </head>
-<body>
+<body>   
     <div class="container mt-3">
-        <h1>Meine Anzeigen</h1>
+        <h1>Anzeigen</h1>
         <div class="row">
             @each(anzeige in anzeigen)
             <div class="col-md-4 mb-3">
@@ -67,8 +68,10 @@
                         <h5 class="card-title">{{ anzeige.titel }}</h5>
                         <p class="card-text">{{ anzeige.beschreibung }}</p>
                         <p class="card-text"><small class="text-muted">Preis: €{{ anzeige.preis }}</small></p>
-                    </div>
-                    <a href="/posts/delete/{{ anzeige.anzeigen_id }}" class="btn btn-danger">Deaktivieren</a>
+                    </div>  
+                    <a href="/chats/create/{{ anzeige.user_id }}">
+                        <img src="{{ anzeige.profile_image }}" alt="Profilbild des Anzeigenerstellers" class="profile-image2">
+                    </a>
                 </div>
             </div>
             @endeach

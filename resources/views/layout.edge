@@ -3,62 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kyle's Kleinanzeigen</title>
+    <title>Kleinanzeigen</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <!-- Custom CSS -->
     <style>
-        /* Custom styling for the header */
         .header {
             padding: 20px;
-            background-color: gold; /* Light gray background color */
-            /* background-color: #f8f9fa; */
+            background-color: gold;
         }
-
-         /* Equal margin around icons */
-         .nav-link i {
+        .nav-link i {
             margin: 0 10px;
+        }
+        /* Logout */
+        .navbar .btn-outline-danger {
+            border-color: #f8f9fa; /* Light gray */
+            color: #f8f9fa;
+        }
+        .navbar .btn-outline-danger:hover {
+            background-color: #f8f9fa;
+            color: #000;
+        }
+        .profile-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
         }
     </style>
 </head>
 <body>
     <!-- Header -->
-    <div class="header">
-        <div class="container">
+     <div class="header">
+        <div class="container d-flex align-items-center"> <!-- Flexbox Container -->
             <h1>Kyle's Kleinanzeigen</h1>
+            <div style="flex-grow: 1"></div>
+            <img src="{{ user.profile_image }}" alt="Profilbild" class="img-thumbnail profile-image">
         </div>
     </div>
 
-     <!-- Navbar -->
-     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <!-- Navbar brand -->
-            <a class="navbar-brand" href="/"><i class="fas fa-home"></i></a>
-            <!-- Navbar toggler button for mobile -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- Navbar links -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/chats"><i class="fas fa-comments"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/profil"><i class="fas fa-user"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/ads/create"><i class="fas fa-plus"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/posts"><i class="fas fa-blog"></i></a>
-                    </li>
-                </ul>
+    @if(page !== '/' && page !== 'auth/login' && page !== 'auth/login-failed' && page !== 'auth/register')
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+
+                <!-- Navbar toggler button for mobile -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Navbar links -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/startseite"><i class="fas fa-home"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/chats"><i class="fas fa-comments"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/profil/ansicht"><i class="fas fa-user"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/anzeigen/erstellen"><i class="fas fa-plus"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/posts"><i class="fas fa-cart-plus"></i></a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="btn btn-outline-danger nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    @endif
 
     <!-- Main content -->
     <main>

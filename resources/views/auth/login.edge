@@ -1,12 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neue Anzeige erstellen</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"><style>
+  .profile-image {
+    width: 60px; 
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+</style>
 </head>
 <body>
-    
+  <div class="container">
+    <h1>Login</h1>
+    <form id="loginForm" action="/login" method="POST">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+      <div class="form-group">
+        <label for="username">Benutzername:</label>
+        <input type="username" class="form-control" id="username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Passwort:</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+      </div>
+      <!-- Button Container für die Buttons Anmelden und Registrieren -->
+      <div class="form-group d-flex justify-content-start">
+        <button type="submit" class="btn btn-primary" id="loginButton">Anmelden</button>
+        <a href="/register" class="btn btn-success ml-2">Registrieren</a>
+      </div>
+    </form>
+  </div>
+  <!-- Include Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        const loginButton = document.getElementById('loginButton');
+        const originalButtonText = loginButton.innerHTML; // Store original button text
+        loginButton.innerHTML = '<i class="fa fa-spinner fa-spin"></i>'; // Display spinner without changing button text
+        loginButton.disabled = true; // Disable the button to prevent multiple clicks
+
+        setTimeout(function() {
+            // Re-enable the button after 1.5 seconds
+            loginButton.disabled = false;
+            loginButton.innerHTML = originalButtonText; // Restore original button text
+
+            // Submit the form
+            document.getElementById('loginForm').submit();
+        }, 1500); // Adjusted duration to 1.5 seconds
+
+        e.preventDefault();
+    });
+</script>
 </body>
 </html>
